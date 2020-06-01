@@ -1,0 +1,174 @@
+<div class="app search-i" [dir]="layoutDir"
+    [ngClass]="[ menuLayout, selectedSidebarColor, selectedHeaderColor, collapsedClass]" [class.app-dark]="dark"
+    [class.collapsed-sidebar]="collapseSidebar" [class.compact-sidebar]="compactSidebar">
+    <mat-sidenav-container class="app-inner">
+        <mat-sidenav #sidemenu class="sidebar-panel" id="sidebar-panel" [mode]="isOver() ? 'over' : 'side'"
+            [opened]="!isOver()" (mouseover)="menuMouseOver()" (mouseout)="menuMouseOut()">
+            <div class="opt-side relative ">
+                <div class="sidebar-container ">
+                    <div class="branding text-center">
+                        <h2><span> Leucotron</span></h2>
+                    </div>
+                    <div class="main-nav mat-elevation-z8">
+                        <div class="user-pro-wrap">
+                            <div class="user-profile-thumb text-center">
+                                <div class="user-i">
+                                    <img alt="" class="rad-full mb-1" height="100" src="assets/images/teste.png"
+                                        width="100">
+                                    <div> <span>Olá, Souza</span></div>
+                                </div>
+                            </div>
+                            <div class="most-used text-center">
+                                <a class="most-link" color="primary">
+                                    <mat-icon>home</mat-icon>
+                                </a>
+                                <a class="most-link" color="primary">
+                                    <mat-icon>person</mat-icon>
+                                </a>
+                                <a class="most-link" color="primary">
+                                    <mat-icon>settings</mat-icon>
+                                </a>
+                            </div>
+                        </div>
+                        <mat-nav-list appAccordion class="navigation relative">
+                            <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getAll()">
+                                <a appAccordionToggle class="relative" mat-ripple [routerLink]="['/', menuitem.state]"
+                                    *ngIf="menuitem.type === 'link'">
+                                    <mat-icon>{{ menuitem.icon }}</mat-icon>
+                                    <span>{{ menuitem.name}}</span>
+                                    <span fxFlex></span>
+                                </a>
+                                <a appAccordionToggle class="relative" mat-ripple *ngIf="menuitem.type === 'extLink'">
+                                    <mat-icon>{{ menuitem.icon }}</mat-icon>
+                                    <span>{{ menuitem.name}}</span>
+                                    <span fxFlex></span>
+                                </a>
+                                <a appAccordionToggle class="relative" mat-ripple href="{{menuitem.state}}"
+                                    target="_blank" *ngIf="menuitem.type === 'extTabLink'">
+                                    <mat-icon>{{ menuitem.icon }}</mat-icon>
+                                    <span>{{ menuitem.name}}</span>
+                                    <span fxFlex></span>
+                                </a>
+                                <a appAccordionToggle class="relative" mat-ripple href="javascript:;"
+                                    *ngIf="menuitem.type === 'sub'">
+                                    <mat-icon>{{ menuitem.icon }}</mat-icon>
+                                    <span>{{ menuitem.name}}</span>
+                                    <span fxFlex></span>
+                                    <mat-icon class="menu-caret">arrow_drop_down</mat-icon>
+                                </a>
+
+                            </mat-list-item>
+                        </mat-nav-list>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-overlay"></div>
+        </mat-sidenav>
+        <mat-toolbar class="main-header">
+            <div class="horizontal-top-bar w-100">
+                <div fxFlex.sm="100" fxFlex.xs="100" fxFlex.md="33.33" fxFlex.lg="33.33" fxFlex.xl="33.33" fxFlex="100">
+                    <div class="search-bar" fxFlex>
+                        <form class="search-form">
+                            <mat-icon>search</mat-icon>
+                            <input type="text" placeholder="Search" />
+                        </form>
+                    </div>
+                </div>
+                <div fxFlex.sm="100" fxFlex.xs="100" fxFlex.md="33.33" fxFlex.lg="33.33" fxFlex.xl="33.33" fxFlex="100">
+                    <div class="horizontal-logo">
+                        <div class="branding text-center">
+                            <h2><i class="fa fa-superpowers" aria-hidden="true"></i> <span> Leucotron</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex.sm="100" fxFlex.xs="100" fxFlex.md="33.33" fxFlex.lg="33.33" fxFlex.xl="33.33" fxFlex="100">
+                    <div class="menu-links">
+                        <button [mat-menu-trigger-for]="user" mat-icon-button class="ml-xs">
+                            <mat-icon>person</mat-icon>
+                        </button>
+                        <mat-menu #user="matMenu" class="opt-menu" x-position="before">
+                            <div mat-menu-item class="head-menu grad-blue">
+                                Settings
+                            </div>
+                            <button mat-menu-item>
+                                <mat-icon>settings</mat-icon>
+                                Setting
+                            </button>
+                            <button mat-menu-item>
+                                <mat-icon>account_box</mat-icon>
+                                Profile
+                            </button>
+
+                            <button class="right" mat-menu-item>
+                                <mat-icon>exit_to_app</mat-icon>
+                                Sign Out
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+            <div class="vertical-menu w-100">
+                <button (click)="menuToggleFunc()" mat-icon-button class="lines-btn">
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <span fxFlex></span>
+                <!-- <button mat-icon-button class="ml-xs right">
+                    <mat-icon routerLink="/login">exit_to_app</mat-icon>
+                </button>
+
+                <mat-menu #lazyMenu="matMenu">
+                    <ng-template matMenuContent let-name="name">
+                        <button mat-menu-item>Settings</button>
+                        <button mat-menu-item>Log out {{ name }}</button>
+                    </ng-template>
+                </mat-menu> -->
+
+                <button mat-icon-button class="ml-xs right" [matMenuTriggerFor]="lazyMenu">
+                    <mat-icon mat-raised-button>more_vert</mat-icon>
+                </button>
+                <!-- <mat-icon mat-raised-button class="right">more_vert</mat-icon> -->
+                <mat-menu #lazyMenu="matMenu" class="right">
+                    <ng-template matMenuContent let-name="name">
+                        <button mat-menu-item (click)="openSettings()">
+                            <mat-icon class="mat-24">settings</mat-icon>
+                            Settings
+                        </button>
+                        
+                        <button mat-menu-item routerLink="/login">
+                            <mat-icon>exit_to_app</mat-icon>
+                            <span>Loggout</span>
+                        </button>
+                    </ng-template>
+                </mat-menu>
+            </div>
+
+        </mat-toolbar>
+
+        <div class="body-container">
+            <router-outlet></router-outlet>
+        </div>
+
+    </mat-sidenav-container>
+
+    <!-- <button mat-fab color="warn" class="mat-fab-bottom-right" (click)="showSettings()">
+        <mat-icon class="mat-24">settings</mat-icon>
+    </button> -->
+    <mat-card class="settings-panel" *ngIf="showSettings">
+        <mat-toolbar color="blue">
+            <span fxFlex>Configurações de Layout</span>
+            <button mat-icon-button (click)="openSettings()">
+                <mat-icon class="right">close</mat-icon>
+            </button>
+        </mat-toolbar>
+        <mat-card-content class="demo-checkbox">
+            <div class="color-header clearfix">
+                <span class="mb-2 d-block"><strong>Cor de fundo</strong></span>
+            </div>
+            <div class="pb-1">
+                <mat-checkbox (click)="clickDark()" [(ngModel)]="dark">DARK/LIGHT</mat-checkbox>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

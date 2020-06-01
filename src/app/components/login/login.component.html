@@ -1,0 +1,33 @@
+<div class="relative">
+    <div class="form-bg">
+        <div fxLayout="row" fxLayoutAlign="center center" class="pt-2">
+            <div fxLayout="column" fxFlex.xl="40" fxFlex.lg="40" fxFlex.md="50" fxFlex.sm="80" fxFlex.xs="90">
+                <mat-card  class="login-session">
+                    <div>
+                        <mat-card-title>
+                            <mat-toolbar fxLayoutAlign="center center"  class="color">
+                                <span class="span">Leucotron</span>
+                            </mat-toolbar>
+                        </mat-card-title>
+                        <br>
+                        <form  name="form" #f="ngForm" (ngSubmit)="login()" novalidate>
+                            <div fxLayout="column" fxLayoutAlign="center center">
+                                <mat-form-field style="width: 85%">
+                                    <input matInput placeholder="Usuário" type="text" #name="ngModel" name="name" required
+                                        [(ngModel)]="model.username">
+                                    <mat-icon matSuffix>face</mat-icon>
+                                </mat-form-field>
+                                <mat-form-field style="width: 85%" class="mb-1">
+                                    <input matInput placeholder="Senha" type="password" name="password" required
+                                        [(ngModel)]="model.password"  #password="ngModel">
+                                    <mat-icon matSuffix>vpn_key</mat-icon>
+                                </mat-form-field>
+                                <button mat-raised-button style="width: 85%" class="color1" [disabled]="loading" type="submit">LOGIN</button>
+                            </div>
+                        </form>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
