@@ -16,6 +16,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ChartsModule } from 'ng2-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { DashboardService } from './dashboard.service';
+import { SharedModule } from '../../shared/shared.module';
 
 const importsModule: any = [
   CommonModule,
@@ -24,6 +26,7 @@ const importsModule: any = [
   ChartsModule,
   NgxChartsModule,
   NgxDatatableModule,
+  SharedModule
   // MatIconModule,
   // MatCardModule,
   // MatButtonModule,
@@ -34,6 +37,7 @@ const importsModule: any = [
 
 @NgModule({
   declarations: [DashboardComponent],
-  imports: [importsModule]
+  imports: [importsModule],
+  providers: [DashboardService]
 })
 export class DashboardModule { }

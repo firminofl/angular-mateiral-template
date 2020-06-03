@@ -8,6 +8,7 @@ import {
   PerfectScrollbarConfigInterface,
   PerfectScrollbarComponent, PerfectScrollbarDirective
 } from 'ngx-perfect-scrollbar';
+
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -35,6 +36,7 @@ export class MainComponent implements OnInit, OnDestroy {
   selectedSidebarColor: any = 'sidebar-default';
   selectedHeaderColor: any = 'header-default';
   collapsedClass: any = 'side-panel-opened';
+  count: number = 0;
 
   @ViewChild('sidemenu', { static: true }) sidemenu;
   public config: PerfectScrollbarConfigInterface = {};

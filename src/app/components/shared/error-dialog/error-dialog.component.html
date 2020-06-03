@@ -1,0 +1,15 @@
+<div class="mat-display-1 text-center">
+    Error {{data.errorStatus}}
+</div>
+
+<mat-dialog-content>
+
+    <div>
+        cause: <mat-chip>{{data.message}}</mat-chip>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Close</button>
+</mat-dialog-actions>

@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { single, multi } from './chats.data';
+import { DashboardService } from './dashboard.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
+
+import { ErrorDialogComponent } from './../../shared/error-dialog/error-dialog.component';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  private title: string = 'Dashboard'
 
   public single: any[];
   public multi: any[];
@@ -205,9 +212,36 @@ export class DashboardComponent {
     subject: 'Onsectetur adipisic',
   },];
 
-  constructor() {
+  constructor(
+    private dashboardService: DashboardService,
+    private errorDialog: MatDialog,
+    private appComponent: AppComponent) {
     this.fetch((data) => { this.rows = data; });
     Object.assign(this, { single, multi })
+  }
+
+  ngOnInit() {
+    this.appComponent.setTitle(this.title)
+    
+    this.dashboardService.dashboard().subscribe(
+      success => {
+        console.log(success)
+      },
+      error => {
+        console.log(error)
+        this.openErrorDialog(error)
+      })
+  }
+
+  openErrorDialog(error: HttpErrorResponse) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = {
+      errorStatus: error.status,
+      message: `${error.error.message}, you will be redirect to login page.`
+    }
+
+    this.errorDialog.open(ErrorDialogComponent, dialogConfig);
   }
 
   onSelect(event) {

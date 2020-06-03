@@ -1,3 +1,4 @@
+import { ErrorDialogComponent } from './components/shared/error-dialog/error-dialog.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 
@@ -53,6 +54,7 @@ const imports: any = [
     Title,
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorDialogComponent]
 })
 export class AppModule { }

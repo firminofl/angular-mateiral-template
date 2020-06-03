@@ -23,7 +23,7 @@ const MENUITEMS: Menu[] = [
   },
 
   {
-    state: 'forms',
+    state: 'dashboard',
     name: 'Adicionar Produto',
     type: 'link',
     icon: 'post_add',

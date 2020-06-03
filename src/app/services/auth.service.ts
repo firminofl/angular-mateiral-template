@@ -1,11 +1,11 @@
-import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
-
-import { JwtHelperService } from '@auth0/angular-jwt';
-
-import * as decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import * as decode from 'jwt-decode';
+
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (this.jwtHelper.isTokenExpired(token))
       this.logout()
     return !this.jwtHelper.isTokenExpired(token);
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate(['/login'])
   }
 }
